@@ -1,20 +1,22 @@
-package com.kaito.tiles;
+package com.kaito.tiles
+
 //https://github.com/stedi-akk/PowerOffClick
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.Toast;
+import android.app.Activity
+import android.os.Bundle
+import android.widget.Toast
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 
-public class MainActivity extends Activity {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
+class MainActivity : Activity() {
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Thread(Runnable {
+            try {
+                startActivity(packageManager.getLaunchIntentForPackage("org.thunderdog.challegram"))
+            } catch (e: Exception) {
+                Toast.makeText(applicationContext, "Telegram X not installed.\n$e", Toast.LENGTH_SHORT).show()
+            }
+
+            /*try {
                     Process process = Runtime.getRuntime().exec("su");
                     DataOutputStream os = new DataOutputStream(process.getOutputStream());
                     os.writeBytes("input keyevent 26" + "\n");
@@ -26,9 +28,8 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this, "Device does not have root access.", Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException ex) {
                     Toast.makeText(MainActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).start();
-        finish();
+                }*/
+        }).start()
+        finish()
     }
 }
